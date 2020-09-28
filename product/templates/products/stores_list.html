@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for s in stores %}
+    <h3>{{ s.id }}- {{ s.name }}- phone-number:{{ s.phone_number }}</h3><br>
+    {{ s.owner.name }}
+    {% for p in s.products.all %}
+        <h5>List of products</h5>
+        <p>{{ p.id }}- {{ p.name }}</p>
+        {% endfor %}
+{% endfor %}
+</body>
+</html>

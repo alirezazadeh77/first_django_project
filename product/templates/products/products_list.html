@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>products</title>
+</head>
+<body>
+{% if not authenticated %}
+    <script>
+        window.location.href =
+        {% url "login" %}
+    </script>
+{% endif %}
+
+<br>
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+        <div>
+            <a class='btn btn-info ' href={% url "create-product" %}><span
+                    class="glyphicon glyphicon-plus"></span> add new</a>
+        </div>
+        <table class="table table-striped custab">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>rating</th>
+                <th class="text-center">action</th>
+            </tr>
+            </thead>
+            {% for p in object_list %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.name }}</td>
+                    <td>{{ p.rating_avg }}</td>
+                    <td class="text-center">
+                        <a class='btn btn-info btn-xs' href={% url "product-detail" p.id %}><span
+                            class="glyphicon glyphicon-link"></span> go to detail</a>
+                        <a class='btn btn-info btn-xs' href={% url "product-update" p.id %}><span
+                            class="glyphicon glyphicon-edit"></span> edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+        </table>
+        <div>
+            <a class='btn btn-danger ' href={% url "logout" %}><span
+                    class="glyphicon glyphicon-log-out"></span> logout</a>
+        </div>
+    </div>
+</div>
+
+{#{% block content %}#}
+{#    <p>{{ PostPrametr }}</p>#}
+{#{% endblock content %}#}
+</body>
+</html>
+<style>
+
+    .custab {
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 5% 0;
+        box-shadow: 3px 3px 2px #ccc;
+        transition: 0.5s;
+    }
+
+    .custab:hover {
+        box-shadow: 3px 3px 0px transparent;
+        transition: 0.5s;
+    }
+</style>

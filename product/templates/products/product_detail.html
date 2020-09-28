@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <meta charset="UTF-8">
+    <title>products</title>
+</head>
+<body>
+{% if not authenticated %}
+    <script>
+        window.location.href =
+        {% url "login" %}
+    </script>
+{% endif %}
+<div class="container">
+{#    <img src='{{ object.image.url }}' class="img-circle col-sm-2 img-setting" alt="Cinque Terre">#}
+    <div class="row col-md-6 col-md-offset-1 custyle">
+        <table class="table table-striped custab">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>rating</th>
+                <th>rating count</th>
+                <th class="text-center">action</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>{{ object.id }}</td>
+                <td>{{ object.name }}</td>
+                <td>{{ object.rating_avg }}</td>
+                <td>{{ object.rating_count }}</td>
+                <td class="text-center">
+                    <a class='btn btn-info btn-xs' href={% url "product-update" object.id %}><span
+                            class="glyphicon glyphicon-edit"></span> edit</a>
+                </td>
+            </tr>
+        </table>
+        <div class="container row">
+            <div>
+                <a class='btn btn-danger col-sm-4' href={% url "logout" %}><span
+                        class="glyphicon glyphicon-log-out"></span> logout</a>
+            </div>
+            <div>
+                <a class='btn btn-success col-sm-4 col-md-offset-2' href={% url "products-list" %}><span
+                        class="glyphicon glyphicon-backward"></span> back</a>
+            </div>
+        </div>
+    </div>
+</div>
+{{ bookmark }}<br>
+{% for c in object.comments.get_queryset %}
+{{ c.id }} - {{ c.content }}
+{% endfor %}
+</body>
+</html>
+<style>
+    .img-setting {
+        margin-top: 20px;
+    }
+
+    .custab {
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 5% 0;
+        box-shadow: 3px 3px 2px #ccc;
+        transition: 0.5s;
+    }
+
+    .custab:hover {
+        box-shadow: 3px 3px 0px transparent;
+        transition: 0.5s;
+    }
+</style>

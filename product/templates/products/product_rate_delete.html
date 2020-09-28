@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>are you sure?</p>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes">
+    <a href={% url "products-list" %}></a>
+    <a href={% url "products-list" %}>no</a>
+</form>
+</body>
+</html>

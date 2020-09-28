@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>category: {{ object.name }}</ul>
+{% for product in object.products.all %}
+    <ul>
+        <li>
+            {{ product.id }} - {{ product.name }}
+        </li>
+    </ul>
+{% endfor %}
+{% for key, value in properties.items %}
+    <hl>{{ key }}</hl>
+    {% for v in value %}
+        {{ v }}
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

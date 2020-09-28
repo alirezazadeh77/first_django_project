@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>wellcome</title>
+</head>
+<body>
+<div class="jumbotron text-center back-color">
+    <h1>wellcome to my website</h1>
+</div>
+<div class=" row contanar-setting">
+    {% if not authenticated %}
+        <a href={% url "login" %}>
+            <div class="col-md-4 box-setting-login">
+                <h1>login</h1>
+            </div>
+        </a>
+    {% endif %}
+    {% if authenticated %}
+        <a href={% url "products-list" %}>
+
+            <div class="col-md-4 col-md-offset-4 box-setting-product">
+                <h1>products list</h1>
+            </div>
+        </a>
+
+
+    {% endif %}
+
+</div>
+<br>
+<div class="row">
+    <div class="col-md-4" style="width: 20%;text-align: right;"><h1>search: </h1></div>
+    <div class="col-md-4 col-sm-offset-1" style="width: 70%;text-align: left;">
+
+        <form method="get">
+            {% csrf_token %}
+            <input name="search_input" type="text">
+            <span>search in product  </span><input name="search_in_product" type="checkbox">
+            <span>search in category  </span><input name="search_in_category" type="checkbox">
+            <button type="submit">search</button>
+        </form>
+        {% if products != None %}
+            <span>products: </span>
+
+            {% if products.count != 0 %}
+                {% for i in products %}
+                    <span>{{ i }}</span>
+                {% endfor %}
+            {% else %}
+                <span>not found in product</span>
+            {% endif %}
+        {% endif %}
+        {% if categories != None %}
+            <span>categories: </span>
+
+            {% if categories.count != 0 %}
+                {% for i in categories %}
+                    <span>{{ i }}</span>
+                {% endfor %}
+            {% else %}
+                <span>not found in categories</span>
+            {% endif %}
+        {% endif %}
+        {% if products != None and categories != None %}
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
+<style>
+    span {
+        color: white;
+
+    }
+
+    input[type=text] {
+        width: 100%;
+        text-align: inherit;
+        height: 50px;
+        margin-top: 20px
+    }
+
+    body {
+        background-color: black;
+    }
+
+    .back-color {
+        background-color: black;
+        color: white;
+    }
+
+    .box-setting-login {
+        height: 100%;
+        text-align: center;
+        border-radius: 25px;
+        color: lightgray;
+        background-color: red;
+        box-shadow: -11px 9px 20px 4px brown;
+        transition: box-shadow .5s linear;
+    }
+
+    .box-setting-login:hover {
+        color: lightgray;
+        background-color: brown;
+        box-shadow: 0 0 20px 4px brown;
+    }
+
+    .box-setting-product {
+        height: 100%;
+        text-align: center;
+        border-radius: 25px;
+        color: lightgray;
+        background-color: red;
+        box-shadow: 11px 9px 20px 4px brown;
+        transition: box-shadow .5s linear;
+    }
+
+    .box-setting-product:hover {
+        color: lightgray;
+        background-color: brown;
+        box-shadow: 0 0 20px 4px brown;
+    }
+
+    .contanar-setting {
+        margin-left: 25%;
+        margin-right: 25%;
+
+    }
+</style>
+
+
+
+
+
+
+
+
