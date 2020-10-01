@@ -4,8 +4,6 @@ from rest_framework.routers import SimpleRouter
 from product.api.serializers import CategorySerializer, ProductSerializer
 from product.api.views import InitialView, CategoryViewSet, ProductViewSet
 
-
-
 router = SimpleRouter()
 
 router.register('category-api', CategoryViewSet)

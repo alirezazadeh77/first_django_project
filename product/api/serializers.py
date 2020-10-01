@@ -13,9 +13,10 @@ class CategorySerializer(serializers.ModelSerializer):
 
     def get_child(self, obj):
         query = Category.objects.filter(parent=obj.id)
-        serializer = CategorySerializer(query,many=True)
+        serializer = CategorySerializer(query, many=True)
         # return CategorySetializer(obj.(related_name).all).data()
         return serializer.data
+
 
 class ProductSerializer(serializers.ModelSerializer):
     categurise = CategorySerializer(many=True)

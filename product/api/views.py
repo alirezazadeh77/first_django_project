@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from commenting.api.serializers import CommentingSerializer
 from commenting.models import ProductComment
@@ -79,7 +80,7 @@ class CategoryViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
 
 
 class ProductViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly, ]
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, CistomOrdering, SearchFilter, ]
@@ -87,7 +88,7 @@ class ProductViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     search_fields = ['name', 'categurise__name']
     ordering_fields = ['id', 'name', 'rating_avg', 'rating_count']
     # filter_fields = ['id', 'categurise']
-    filter_fields = {'price': ['lt', 'gt']}
+    filter_fields = {'price': ['lt', 'gt'], 'categurise__id': ['in', ]}
     queryset = Product.objects.filter(is_enable=True)
 
     def get_serializer_class(self):

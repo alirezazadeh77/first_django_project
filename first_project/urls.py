@@ -30,6 +30,7 @@ urlpatterns = [
     path('logout/', CostumLogout.as_view(), name='logout'),
     path('products/', include('product.urls')),
     path('api/', include('commenting.api.urls')),
+    path('api/accounts/', include('accounts.api.urls')),
 
 ]
 urlpatterns += staticfiles_urlpatterns()

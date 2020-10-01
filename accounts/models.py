@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from first_project.costom_field import CustomBigIntegerField
 from product.validators import clean_phone_number_validator
 
 
@@ -40,7 +41,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    Phone_number = models.BigIntegerField(_("Phone number"), unique=True, validators=[clean_phone_number_validator, ])
+    Phone_number = CustomBigIntegerField(_("Phone number"), unique=True, validators=[clean_phone_number_validator, ])
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -64,5 +65,20 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = _('User')
         verbose_name_plural = _('Users')
 
+    def set_verify_code(self, verify_code):
+        self.verify_codes.create(verification_code=verify_code)
+
     def __str__(self):
         return str(self.Phone_number)
+
+
+class VerifyCode(models.Model):
+    created_time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey('User', verbose_name="user", on_delete=models.CASCADE, related_name="verify_codes")
+    verification_code = models.PositiveIntegerField("verification code")
+    verify_time = models.DateTimeField("verify_time", blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "verify codes"
+        verbose_name = "verify code"
+

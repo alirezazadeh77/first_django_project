@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
+from datetime import timedelta
+
 from decouple import config, Csv
 from pathlib import Path
 
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'rest_framework',
-    'accounts'
+    'accounts',
+    'prettyjson'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +123,12 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE':1
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=3600),
+    "ROTATE_REFRESH_TOKENS": True
 }
 
 LANGUAGE_CODE = 'en-us'

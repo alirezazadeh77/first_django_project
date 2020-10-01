@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django import forms
+from prettyjson import PrettyJSONWidget
+
 from .models import Product, ProductRating, Category, ProductBookMark
 from .models import Store
 
@@ -10,8 +13,16 @@ from .models import Store
 # admin.site.register(Category)
 # admin.site.register(ProductBookMark)
 
+class CateforyForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
+        widgets = {'properties': PrettyJSONWidget()}
+
+
 @admin.register(Category)
 class CtegoriesAdmin(admin.ModelAdmin):
+    form = CateforyForm
     list_display = ["name", "parent", "is_enable"]
     list_filter = ["is_enable", ]
     raw_id_fields = ["parent", ]
