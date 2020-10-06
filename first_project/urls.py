@@ -29,8 +29,8 @@ urlpatterns = [
     path('sign-up/', SingUpView.as_view(), name='sign-up'),
     path('logout/', CostumLogout.as_view(), name='logout'),
     path('products/', include('product.urls')),
-    path('api/', include('commenting.api.urls')),
-    path('api/accounts/', include('accounts.api.urls')),
+    path('api/comments/', include('commenting.api.urls')),
+    path('accounts/', include('accounts.api.urls')),
 
 ]
 urlpatterns += staticfiles_urlpatterns()

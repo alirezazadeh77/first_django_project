@@ -24,3 +24,6 @@ class ProductComment(models.Model):
         return bool(self.approved_by)
 
     is_approved.boolean = True
+
+
+# class CommentVote

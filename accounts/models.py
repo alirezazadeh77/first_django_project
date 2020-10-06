@@ -81,4 +81,9 @@ class VerifyCode(models.Model):
     class Meta:
         verbose_name_plural = "verify codes"
         verbose_name = "verify code"
-
+        indexes = [
+            models.Index(
+                fields=['user', 'verification_code'],
+                name='index_user_code'
+            )
+        ]
