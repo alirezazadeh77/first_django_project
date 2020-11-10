@@ -7,7 +7,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.views import TokenViewBase
 
 from accounts.api.serializers import TokenLifetimeSerializer, RefreshLifetimeSerializer, RegisterSerializer, \
-    SetPasswordSerializer
+    SetPasswordSerializer, SendVerifyCodeSerializer, ForgotPasswordSerializer
 from accounts.models import User
 from first_project.throttles import PhoneNumberScopedReateTrottle
 
@@ -35,4 +35,26 @@ class SetPasswordView(APIView):
         serializer = SetPasswordSerializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response("new password ser successfull", status=status.HTTP_201_CREATED)
+        return Response("new password set successful", status=status.HTTP_201_CREATED)
+
+
+class SendVerifyCodeView(APIView):
+    throttle_classes = [PhoneNumberScopedReateTrottle, ]
+    throttle_scope = "sendverifycode"
+
+    def post(self, request, *args, **kwargs):
+        serializer = SendVerifyCodeSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response("message is already send", status=status.HTTP_201_CREATED)
+
+
+class ForgetPasswordView(APIView):
+    authentication_classes = [JWTAuthentication, ]
+    permission_classes = [IsAuthenticated, ]
+
+    def post(self, request, *args, **kwargs):
+        serializer = ForgotPasswordSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response("new password set successful", status=status.HTTP_201_CREATED)

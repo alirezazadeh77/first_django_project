@@ -6,7 +6,7 @@ from product.api.views import InitialView, CategoryViewSet, ProductViewSet
 
 router = SimpleRouter()
 
-router.register('category-api', CategoryViewSet)
+router.register('categoryapi', CategoryViewSet, basename="ca")
 router.register('product-api', ProductViewSet)
 
 urlpatterns = [

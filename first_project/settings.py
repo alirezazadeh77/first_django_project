@@ -131,6 +131,7 @@ REST_FRAMEWORK = {
     # ],
     'DEFAULT_THROTTLE_RATES': {
         'register': '2/minute',
+        'sendverifycode': '2/minute/20',
         # 'user': '5/minute'
     }
 }

@@ -22,5 +22,5 @@ class SMSBackend(ModelBackend):
                 verify_code.verify_time = timezone.now()
                 verify_code.save()
                 return verify_code.user
-        except (ValueError, ValidationError):
+        except (ValueError, ValidationError, TypeError):
             pass
